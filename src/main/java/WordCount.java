@@ -239,7 +239,6 @@ public class WordCount {
     job.setReducerClass(IntSumReducer.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(IntWritable.class);
-    //自定义outputformat以按特定格式输出结果
     job.setOutputFormatClass(SequenceFileOutputFormat.class);
     List<String> otherArgs = new ArrayList<String>();
     for (int i=0; i < remainingArgs.length; ++i) {
@@ -269,7 +268,8 @@ public class WordCount {
       FileOutputFormat.setOutputPath(sortJob, new Path(otherArgs.get(1)));
       sortJob.setOutputKeyClass(IntWritable.class);
       sortJob.setOutputValueClass(Text.class);
-      sortJob.setOutputFormatClass(RankOutputFormat.class);
+     //自定义outputformat以按特定格式输出结果
+     sortJob.setOutputFormatClass(RankOutputFormat.class);
       //IntWritableDecreasingComparator是一个降序comparator（默认升序）
       sortJob.setSortComparatorClass(IntWritableDecreasingComparator.class);
       if(sortJob.waitForCompletion(true)){
